@@ -9,9 +9,11 @@ Test: It should add a ticket order message.
 Code: Ticket.orderMessage()
 Expected Output: "You have bought a "age" ticket to the "time" showing of movie ("release").
 
-Test:
-Code:
-Expected Output:
+Describe TheatreOrder
+
+Test: It will create a global function.
+Code: TheatreOrder()
+Expected Output: TheatreOrder(){this.Tickets={};}
 
 Test:
 Code:

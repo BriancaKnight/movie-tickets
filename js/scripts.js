@@ -1,3 +1,9 @@
+//Buisness Logic for TheatreOrder ------------
+function TheatreOrder() {
+  this.Tickets = {}
+}
+
+//Buisness Logic for Ticket---------
 function Ticket(releaseType, showing, age, movie){
   this.releaseType = releaseType;
   this.showing = showing;
