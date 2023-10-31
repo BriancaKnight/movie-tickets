@@ -1,12 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <!-- <meta name="viewport" content="width=\, initial-scale=1.0"> -->
   <script src="js/scripts.js"></script>
-  <title>Document</title>
+  <title>Movie Theater</title>
 </head>
+
 <body>
-  
+  <h1>Movie Theater</h1>
+  <form id="movie-submit">
+    <!-- release type -->
+    <select name="release-type" id="release-type">
+      <option value="New Release">New Release</option>
+      <option value="Vintage">Vintage</option>
+    </select>
+
+    <!-- time of day -->
+    <select name="time-of-day" id="time-of-day">
+      <option value="Evening">Evening</option>
+      <option value="Matinee">Matinee</option>
+    </select>
+
+
+    <!-- age -->
+    <label for="age">Age</label>
+    <input type="text" id="age" size="4">
+
+    <!-- movie -->
+    <select name="movie-name" id="movie-name">
+      <option value="lion-king">Lion King</option>
+      <option value="tombstone">Tombstone</option>
+    </select>
+    <button type="submit">Buy Tickets!</button>
+  </form>
+
+  <div id="output-div">
+
+  </div>
+
 </body>
+
 </html>

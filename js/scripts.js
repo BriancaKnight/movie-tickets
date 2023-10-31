@@ -4,8 +4,6 @@ function TheatreOrder() {
   this.currentId = 0;
 }
 
-// let myTicket = new Ticket();
-
 TheatreOrder.prototype.addTicket = function (ticket) {
   ticket.id = this.assignId();
   this.tickets[ticket.id] = ticket;
@@ -20,14 +18,18 @@ TheatreOrder.prototype.assignId = function () {
 function Ticket(releaseType, showing, age, movie) {
   this.releaseType = releaseType;
   this.showing = showing;
-  this.age = age
+  this.age = age;
   this.movie = movie;
-  // this.id = null;//maybe
-  // this.ticketPrice = ticketPrice;
+  this.id = null;//shows intent
 }
 
 Ticket.prototype.orderMessage = function () {
-  return "You have bought a " + this.age + " ticket to the " + this.showing + " showing of " + this.movie + " (" + this.releaseType + ")";
+  let ticketPrice = this.basePrice();
+  if (this.age >= 65) {
+    return "You have bought a senior ticket to the " + this.showing + " showing of " + this.movie + " (" + this.releaseType + ")" + " for $" + ticketPrice;
+  } else if (this.age < 65) {
+    return "You have bought a ticket to the " + this.showing + " showing of " + this.movie + " (" + this.releaseType + ")" + " for $" + ticketPrice;
+  }
 }
 
 Ticket.prototype.basePrice = function () {
@@ -50,16 +52,25 @@ Ticket.prototype.basePrice = function () {
   }
 };
 
-//Make testing easier
-let myOrder = new TheatreOrder();
-let ticket1 = new Ticket("New Release", "Evening", 18, "Lion King");
-let ticket2 = new Ticket("Old", "Matinee", 73, "Tombstone");
+//UI Logic
 
-myOrder.addTicket(ticket1);
-myOrder.addTicket(ticket2);
+window.addEventListener("load", function () {
+  document.querySelector("form#movie-submit").addEventListener("submit", handleSubmission);
+})
 
-console.log(myOrder.tickets[ticket1.id].orderMessage());
-console.log(myOrder.tickets[ticket1.id].basePrice());
-console.log(myOrder.tickets[ticket2.id].basePrice());
-console.log(myOrder.tickets[ticket2.id].orderMessage());
-console.log(myOrder.tickets);
+function handleSubmission(e) {
+  e.preventDefault();
+
+  const typeOfRelease = document.getElementById("release-type").value;
+  const timeOfDay = document.getElementById("time-of-day").value;
+  const buyerAge = parseInt(document.getElementById("age").value);
+  const movieChoice = document.getElementById("movie-name").value;
+
+  let myTicket = new Ticket(typeOfRelease, timeOfDay, buyerAge, movieChoice);
+  let ticketPrice = myTicket.basePrice();
+
+  outputStr = myTicket.orderMessage();
+  document.getElementById("output-div").textContent = outputStr;
+  // console.log(typeOfRelease, timeOfDay, buyerAge, movieChoice);
+}
+
