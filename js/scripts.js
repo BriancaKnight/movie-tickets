@@ -1,29 +1,64 @@
 //Buisness Logic for TheatreOrder ------------
 function TheatreOrder() {
-  this.Tickets = {};
+  this.tickets = {};
   this.currentId = 0;
 }
 
-let myTicket = new Ticket();
+// let myTicket = new Ticket();
 
-TheatreOrder.prototype.addTicket = function() {
+TheatreOrder.prototype.addTicket = function (ticket) {
   Ticket.id = this.assignId();
-  this.Tickets[Ticket.id] = Ticket;
+  this.tickets[ticket.id] = ticket;
 };
 
-TheatreOrder.prototype.assignId = function() {
+TheatreOrder.prototype.assignId = function () {
   this.currentId += 1;
   return this.currentId;
 };
 
-//Buisness Logic for Ticket---------
-function Ticket(releaseType, showing, age, movie){
+//Business Logic for Ticket---------
+function Ticket(releaseType, showing, age, movie) {
   this.releaseType = releaseType;
   this.showing = showing;
   this.age = age
   this.movie = movie;
+  this.id = null;//maybe
+  // this.ticketPrice = ticketPrice;
 }
 
-Ticket.prototype.orderMessage = function() {
-  return "You have bought a " + this.age + " ticket to the " + this.showing + " showing of " + this.movie + " (" + this.releaseType + ")"
+Ticket.prototype.orderMessage = function () {
+  return "You have bought a " + this.age + " ticket to the " + this.showing + " showing of " + this.movie + " (" + this.releaseType + ")";
 }
+
+Ticket.prototype.basePrice = function () {
+  let ticketPrice = 10;
+
+  if (this.releaseType === "New Release" && this.showing === "Matinee" && this.age === "Senior") {
+    return (ticketPrice + 3) * .9;
+  } else if (this.releaseType === "New Release" && this.showing === "Matinee") {
+    return ticketPrice + 3;
+  } else if (this.releaseType === "New Release" && this.age === "Senior") {
+    return (ticketPrice + 5) * .9;
+  } else if (this.releaseType === "New Release") {
+    return ticketPrice + 5;
+  } else if (this.showing === "Matinee") {
+    return ticketPrice - 2;
+  } else if (this.age === "Senior") {
+    return ticketPrice * .9;
+  } else {
+    return ticketPrice;
+  }
+}
+
+//Make testing easier
+let myOrder = new TheatreOrder();
+let ticket1 = new Ticket("New Release", "Evening", 18, "Lion King");
+let ticket2 = new Ticket("Old", "Matinee", 73, "Tombstone");
+
+myOrder.addTicket(ticket1);
+myOrder.addTicket(ticket2);
+
+console.log(myOrder.tickets[ticket1.id].orderMessage());
+console.log(myOrder.tickets[ticket1.id].basePrice());
+console.log(myOrder.tickets[ticket2.id].orderMessage());
+console.log(myOrder.tickets);
