@@ -15,9 +15,9 @@ Test: It will create a global function.
 Code: TheatreOrder()
 Expected Output: TheatreOrder(){this.Tickets={};}
 
-Test:
-Code:
-Expected Output:
+Test: It will add Tickets to the global TheatreOrder with unique Ids.
+Code: TheatreOrder.addTicket(movie1)
+Expected Output:TheatreOrder{movie1}
 
 Test:
 Code:
