@@ -19,9 +19,9 @@ Test: It will add Tickets to the global TheatreOrder with unique Ids.
 Code: TheatreOrder.addTicket(movie1)
 Expected Output:TheatreOrder{movie1}
 
-Test:
-Code:
-Expected Output:
+Test: It will create branching logic to determine cost of ticket.
+Code: myOrder.tickets[ticket1.id].basePrice();
+Expected Output: (8)
 
 Test:
 Code:

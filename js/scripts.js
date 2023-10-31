@@ -7,7 +7,7 @@ function TheatreOrder() {
 // let myTicket = new Ticket();
 
 TheatreOrder.prototype.addTicket = function (ticket) {
-  Ticket.id = this.assignId();
+  ticket.id = this.assignId();
   this.tickets[ticket.id] = ticket;
 };
 
@@ -22,7 +22,7 @@ function Ticket(releaseType, showing, age, movie) {
   this.showing = showing;
   this.age = age
   this.movie = movie;
-  this.id = null;//maybe
+  // this.id = null;//maybe
   // this.ticketPrice = ticketPrice;
 }
 
@@ -33,22 +33,22 @@ Ticket.prototype.orderMessage = function () {
 Ticket.prototype.basePrice = function () {
   let ticketPrice = 10;
 
-  if (this.releaseType === "New Release" && this.showing === "Matinee" && this.age === "Senior") {
-    return (ticketPrice + 3) * .9;
+  if (this.releaseType === "New Release" && this.showing === "Matinee" && this.age >= 65) {
+    return Math.round((ticketPrice + 3) * 0.9);
   } else if (this.releaseType === "New Release" && this.showing === "Matinee") {
     return ticketPrice + 3;
-  } else if (this.releaseType === "New Release" && this.age === "Senior") {
-    return (ticketPrice + 5) * .9;
+  } else if (this.releaseType === "New Release" && this.age >= 65) {
+    return Math.round((ticketPrice + 5) * 0.9);
   } else if (this.releaseType === "New Release") {
     return ticketPrice + 5;
   } else if (this.showing === "Matinee") {
     return ticketPrice - 2;
-  } else if (this.age === "Senior") {
-    return ticketPrice * .9;
+  } else if (this.age >= 65) {
+    return Math.round(ticketPrice * 0.9);
   } else {
     return ticketPrice;
   }
-}
+};
 
 //Make testing easier
 let myOrder = new TheatreOrder();
@@ -60,5 +60,6 @@ myOrder.addTicket(ticket2);
 
 console.log(myOrder.tickets[ticket1.id].orderMessage());
 console.log(myOrder.tickets[ticket1.id].basePrice());
+console.log(myOrder.tickets[ticket2.id].basePrice());
 console.log(myOrder.tickets[ticket2.id].orderMessage());
 console.log(myOrder.tickets);
